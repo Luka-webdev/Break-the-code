@@ -1,0 +1,30 @@
+.welcomeScreen {
+    position: relative;
+    z-index: 3;
+    background-color: black;
+
+    &__content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(50%, 50%);
+        height: 50%;
+        padding: 3vw;
+    }
+
+    &__title {
+
+        color: white;
+        font-size: 6vw;
+        font-family: arial;
+    }
+
+    &__btn {
+        position: absolute;
+        bottom: 3vw;
+        right: 3vw;
+        width: 30%;
+        height: 20%;
+        font-size: 2vw;
+    }
+}

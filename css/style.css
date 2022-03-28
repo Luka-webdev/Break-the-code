@@ -1,1 +1,2 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.welcomeScreen{position:relative;z-index:3;background-color:black}.welcomeScreen__content{position:absolute;top:0;left:0;-webkit-transform:translate(50%, 50%);transform:translate(50%, 50%);height:50%;padding:3vw}.welcomeScreen__title{color:white;font-size:6vw;font-family:arial}.welcomeScreen__btn{position:absolute;bottom:3vw;right:3vw;width:30%;height:20%;font-size:2vw}.gameDescription{z-index:2}.boardGame{z-index:1}*{margin:0;padding:0;-webkit-box-sizing:border-box;box-sizing:border-box}.wrapperGame{position:relative;width:100vw;height:100vh}.welcomeScreen,.gameDescription,.gameBoard{position:absolute;width:100%;height:100%}
+/*# sourceMappingURL=style.css.map */
