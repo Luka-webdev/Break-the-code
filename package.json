@@ -1,0 +1,22 @@
+{
+  "name": "break-the-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luka-webdev/Break-the-code.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luka-webdev/Break-the-code/issues"
+  },
+  "homepage": "https://github.com/Luka-webdev/Break-the-code#readme",
+  "devDependencies": {
+    "grunt": "^1.4.1"
+  }
+}
