@@ -1,3 +1,73 @@
-.boardGame {
+.gameBoard {
+    display: flex;
     z-index: 1;
+    background-color: black;
+
+    &__content {
+        margin: auto;
+        width: 90%;
+        height: 90%;
+        border: 4px solid white;
+        color: white;
+    }
+
+    &__army {
+        background-color: red;
+        height: 12%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    &__armyOfPlayer {
+        width: 45%;
+        height: 80%;
+        background-color: orange;
+    }
+
+    &__armyOfEnemy {
+        width: 45%;
+        height: 80%;
+        background-color: yellow;
+    }
+
+    &__code {
+        background-color: green;
+        height: 10%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        p {
+            width: 10%;
+            padding-left: 2vw;
+            background-color: teal;
+        }
+    }
+
+    &__map {
+        background-color: blue;
+        height: 78%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__xCoordinates {
+        width: 100%;
+        height: 10%;
+        background-color: gray;
+    }
+
+    &__yCoordinates {
+        width: 5%;
+        height: 90%;
+        background-color: purple;
+    }
+
+    &__city {
+        width: 95%;
+        height: 90%;
+        background-color: greenyellow;
+    }
+
 }
