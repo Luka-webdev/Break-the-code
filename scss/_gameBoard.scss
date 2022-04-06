@@ -80,4 +80,9 @@
         grid-template-columns: repeat(14, 1fr);
     }
 
+    &__cityBox {
+        &:hover {
+            background-color: green;
+        }
+    }
 }
