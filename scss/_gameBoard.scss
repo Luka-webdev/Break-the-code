@@ -48,26 +48,36 @@
     &__map {
         background-color: blue;
         height: 78%;
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 14fr;
+        grid-template-rows: 1fr 6fr;
+        grid-template-areas:
+            "xBox xBox"
+            "yBox cityBox"
     }
 
     &__xCoordinates {
-        width: 100%;
-        height: 10%;
         background-color: gray;
+        grid-area: xBox;
+        display: grid;
+        grid-template-columns: repeat(15, 1fr);
     }
 
     &__yCoordinates {
-        width: 5%;
-        height: 90%;
         background-color: purple;
+        grid-area: yBox;
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
     }
 
     &__city {
-        width: 95%;
-        height: 90%;
         background-color: greenyellow;
+        grid-area: cityBox;
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-columns: repeat(14, 1fr);
     }
 
 }
