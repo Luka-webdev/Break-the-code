@@ -9,6 +9,7 @@ let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E', 'F']
 let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
 let mainCounter = 0;
+let enemyNumbers = []
 
 function createCityBoxes() {
     let counter = 1
@@ -18,7 +19,7 @@ function createCityBoxes() {
         let box = document.createElement('div')
         box.setAttribute('id', counter)
         counter++;
-        box.setAttribute('class', 'gameBoard__cityBox')
+        box.setAttribute('class', 'gameBoard__cityBox active')
         box.setAttribute('coordinate', yCoordinatesArray[counterY] + xCoordinatesArray[counterX])
         counterX++;
         if (counterX == 14) {
@@ -34,6 +35,12 @@ choiceEnemyCoordinate()
 
 function choiceEnemyCoordinate() {
     num = (Math.floor(Math.random() * numberOfBoxes + 1))
+    for (let i = 0; i < enemyNumbers.length; i++) {
+        if (num === enemyNumbers[i]) {
+            return choiceEnemyCoordinate()
+        }
+    }
+    enemyNumbers.push(num)
     let targetBox = document.getElementById(num)
     coordinates.textContent = targetBox.getAttribute('coordinate')
 }
@@ -41,18 +48,17 @@ function choiceEnemyCoordinate() {
 function getEnemyBoxId(item) {
     if (mainCounter < numberOfBoxes / 2) {
         boxId = parseInt(item.getAttribute('id'))
-        if (num == boxId) {
-            console.log('ok')
-            choiceEnemyCoordinate()
-        } else {
-            console.log('błąd')
+        item.classList.remove('active')
+        item.classList.add('clicked')
+        if (num == boxId) {} else {
+
         }
+        choiceEnemyCoordinate()
         mainCounter++;
-        console.log(mainCounter)
     }
 }
 
-let boxes = document.querySelectorAll('.gameBoard__cityBox')
+let boxes = document.querySelectorAll('.active')
 boxes.forEach(box => {
     box.addEventListener('click', () => getEnemyBoxId(box))
 })
