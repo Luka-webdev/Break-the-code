@@ -10,6 +10,7 @@ let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E', 'F']
 let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
 let mainCounter = 0;
 let enemyNumbers = []
+let clickedBox = []
 
 function createCityBoxes() {
     let counter = 1
@@ -19,7 +20,7 @@ function createCityBoxes() {
         let box = document.createElement('div')
         box.setAttribute('id', counter)
         counter++;
-        box.setAttribute('class', 'gameBoard__cityBox active')
+        box.setAttribute('class', 'gameBoard__cityBox')
         box.setAttribute('coordinate', yCoordinatesArray[counterY] + xCoordinatesArray[counterX])
         counterX++;
         if (counterX == 14) {
@@ -40,15 +41,20 @@ function choiceEnemyCoordinate() {
             return choiceEnemyCoordinate()
         }
     }
+    for (let i = 0; i < clickedBox.length; i++) {
+        if (num === clickedBox[i]) {
+            return choiceEnemyCoordinate()
+        }
+    }
     enemyNumbers.push(num)
     let targetBox = document.getElementById(num)
     coordinates.textContent = targetBox.getAttribute('coordinate')
 }
 
 function getEnemyBoxId(item) {
-    if (mainCounter < numberOfBoxes / 2) {
+    if (mainCounter < numberOfBoxes / 2 && item.classList.contains('clicked') == false) {
         boxId = parseInt(item.getAttribute('id'))
-        item.classList.remove('active')
+        clickedBox.push(boxId)
         item.classList.add('clicked')
         if (num == boxId) {} else {
 
@@ -58,7 +64,7 @@ function getEnemyBoxId(item) {
     }
 }
 
-let boxes = document.querySelectorAll('.active')
+let boxes = document.querySelectorAll('.gameBoard__cityBox')
 boxes.forEach(box => {
     box.addEventListener('click', () => getEnemyBoxId(box))
 })
