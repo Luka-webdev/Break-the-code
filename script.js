@@ -35,20 +35,35 @@ createCityBoxes()
 choiceEnemyCoordinate()
 
 function choiceEnemyCoordinate() {
-    num = (Math.floor(Math.random() * numberOfBoxes + 1))
+    numOfEnemy = (Math.floor(Math.random() * numberOfBoxes + 1))
     for (let i = 0; i < enemyNumbers.length; i++) {
-        if (num === enemyNumbers[i]) {
+        if (numOfEnemy === enemyNumbers[i]) {
             return choiceEnemyCoordinate()
         }
     }
     for (let i = 0; i < clickedBox.length; i++) {
-        if (num === clickedBox[i]) {
+        if (numOfEnemy === clickedBox[i]) {
             return choiceEnemyCoordinate()
         }
     }
-    enemyNumbers.push(num)
-    let targetBox = document.getElementById(num)
-    coordinates.textContent = targetBox.getAttribute('coordinate')
+    enemyNumbers.push(numOfEnemy)
+    let targetBox = document.getElementById(numOfEnemy)
+    let coordinatesOfEnemy = targetBox.getAttribute('coordinate')
+    hidingCoordinates(coordinatesOfEnemy)
+}
+
+function hidingCoordinates(arg) {
+    num = Math.round(Math.random())
+    console.log(num, arg.length)
+    if (num == 0) {
+        coordinates.textContent = arg[0] + "?"
+    } else if (num == 1) {
+        if (arg.length == 2) {
+            coordinates.textContent = "?" + arg[1]
+        } else if (arg.length == 3) {
+            coordinates.textContent = "?" + arg.slice(1, 3)
+        }
+    }
 }
 
 function getEnemyBoxId(item) {
@@ -56,7 +71,7 @@ function getEnemyBoxId(item) {
         boxId = parseInt(item.getAttribute('id'))
         clickedBox.push(boxId)
         item.classList.add('clicked')
-        if (num == boxId) {} else {
+        if (numOfEnemy == boxId) {} else {
 
         }
         choiceEnemyCoordinate()
