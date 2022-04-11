@@ -4,6 +4,8 @@ let descriptionBtn = document.querySelector('.gameDescription__btn')
 let gameDescription = document.querySelector('.gameDescription')
 let city = document.querySelector('.gameBoard__city')
 let coordinates = document.querySelector('.gameBoard__target')
+let armyOfPlayer = document.querySelector('.gameBoard__armyOfPlayer')
+let armyOfEnemy = document.querySelector('.gameBoard__armyOfEnemy')
 
 let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -11,6 +13,8 @@ let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
 let mainCounter = 0;
 let enemyNumbers = []
 let clickedBox = []
+let startWidthOfArmy = parseInt(getComputedStyle(armyOfPlayer).width)
+let oneUnitOfArmy = startWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
 
 function createCityBoxes() {
     let counter = 1
@@ -49,12 +53,12 @@ function choiceEnemyCoordinate() {
     enemyNumbers.push(numOfEnemy)
     let targetBox = document.getElementById(numOfEnemy)
     let coordinatesOfEnemy = targetBox.getAttribute('coordinate')
+    console.log(coordinatesOfEnemy)
     hidingCoordinates(coordinatesOfEnemy)
 }
 
 function hidingCoordinates(arg) {
     num = Math.round(Math.random())
-    console.log(num, arg.length)
     if (num == 0) {
         coordinates.textContent = arg[0] + "?"
     } else if (num == 1) {
@@ -71,12 +75,20 @@ function getEnemyBoxId(item) {
         boxId = parseInt(item.getAttribute('id'))
         clickedBox.push(boxId)
         item.classList.add('clicked')
-        if (numOfEnemy == boxId) {} else {
-
+        if (numOfEnemy == boxId) {
+            chanegWidthElement(armyOfEnemy)
+        } else {
+            chanegWidthElement(armyOfPlayer)
         }
         choiceEnemyCoordinate()
         mainCounter++;
     }
+}
+
+function chanegWidthElement(arg) {
+    let actualWidth = parseInt(getComputedStyle(arg).width)
+    arg.style.width = (actualWidth - oneUnitOfArmy) + "px"
+    console.log(actualWidth)
 }
 
 let boxes = document.querySelectorAll('.gameBoard__cityBox')
