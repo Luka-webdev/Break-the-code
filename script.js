@@ -7,8 +7,8 @@ let coordinates = document.querySelector('.gameBoard__target')
 let armyOfPlayer = document.querySelector('.gameBoard__armyOfPlayer')
 let armyOfEnemy = document.querySelector('.gameBoard__armyOfEnemy')
 
-let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E', 'F']
+let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
 let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
 let mainCounter = 0;
 let enemyNumbers = []
@@ -27,7 +27,7 @@ function createCityBoxes() {
         box.setAttribute('class', 'gameBoard__cityBox')
         box.setAttribute('coordinate', yCoordinatesArray[counterY] + xCoordinatesArray[counterX])
         counterX++;
-        if (counterX == 14) {
+        if (counterX == 12) {
             counterY++;
             counterX = 0;
         }

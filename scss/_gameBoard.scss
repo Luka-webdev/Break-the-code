@@ -51,8 +51,8 @@
         // display: flex;
         // flex-wrap: wrap;
         display: grid;
-        grid-template-columns: 1fr 14fr;
-        grid-template-rows: 1fr 6fr;
+        grid-template-columns: 1fr 12fr;
+        grid-template-rows: 1fr 5fr;
         grid-template-areas:
             "xBox xBox"
             "yBox cityBox"
@@ -62,22 +62,22 @@
         background-color: gray;
         grid-area: xBox;
         display: grid;
-        grid-template-columns: repeat(15, 1fr);
+        grid-template-columns: repeat(13, 1fr);
     }
 
     &__yCoordinates {
         background-color: purple;
         grid-area: yBox;
         display: grid;
-        grid-template-rows: repeat(6, 1fr);
+        grid-template-rows: repeat(5, 1fr);
     }
 
     &__city {
         background-color: greenyellow;
         grid-area: cityBox;
         display: grid;
-        grid-template-rows: repeat(6, 1fr);
-        grid-template-columns: repeat(14, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-template-columns: repeat(12, 1fr);
     }
 
     &__cityBox {
