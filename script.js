@@ -1,11 +1,13 @@
 let welcomeBtn = document.querySelector('.welcomeScreen__btn')
 let welcomeScreen = document.querySelector('.welcomeScreen')
-let descriptionBtn = document.querySelector('.gameDescription__btn')
+let startGameBtn = document.querySelector('.gameDescription__btn')
 let gameDescription = document.querySelector('.gameDescription')
 let city = document.querySelector('.gameBoard__city')
 let coordinates = document.querySelector('.gameBoard__target')
 let armyOfPlayer = document.querySelector('.gameBoard__armyOfPlayer')
 let armyOfEnemy = document.querySelector('.gameBoard__armyOfEnemy')
+let basicMode = document.querySelector('.gameDescription__basic')
+let expandMode = document.querySelector('.gameDescription__expand')
 
 let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
@@ -59,9 +61,17 @@ function choiceEnemyCoordinate() {
 
 function hidingCoordinates(arg) {
     num = Math.round(Math.random())
-    if (num == 0) {
-        coordinates.textContent = arg[0] + "?"
-    } else if (num == 1) {
+    if (expandMode.classList.contains('choiced')) {
+        if (num == 0) {
+            coordinates.textContent = arg[0] + "?"
+        } else if (num == 1) {
+            if (arg.length == 2) {
+                coordinates.textContent = "?" + arg[1]
+            } else if (arg.length == 3) {
+                coordinates.textContent = "?" + arg.slice(1, 3)
+            }
+        }
+    } else {
         if (arg.length == 2) {
             coordinates.textContent = "?" + arg[1]
         } else if (arg.length == 3) {
@@ -96,6 +106,20 @@ boxes.forEach(box => {
     box.addEventListener('click', () => getEnemyBoxId(box))
 })
 
+function choicedMode(arg1, arg2) {
+    if (arg2.classList.contains('choiced') == false) {
+        arg1.classList.add('choiced')
+    }
+    startGameBtn.classList.remove('visible')
+}
+basicMode.addEventListener('click', () => {
+    choicedMode(basicMode, expandMode)
+})
+
+expandMode.addEventListener('click', () => {
+    choicedMode(expandMode, basicMode)
+})
+
 function closeWindow(arg) {
     arg.classList.add('visible')
 }
@@ -103,6 +127,6 @@ function closeWindow(arg) {
 welcomeBtn.addEventListener('click', () => {
     closeWindow(welcomeScreen)
 })
-descriptionBtn.addEventListener('click', () => {
+startGameBtn.addEventListener('click', () => {
     closeWindow(gameDescription)
 })
