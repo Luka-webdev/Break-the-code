@@ -9,6 +9,8 @@ let armyOfEnemy = document.querySelector('.gameBoard__armyOfEnemy')
 let basicMode = document.querySelector('.gameDescription__basic')
 let expandMode = document.querySelector('.gameDescription__expand')
 let summaryGame = document.querySelector('.gameBoard__message')
+let gameResult = document.querySelector('.gameBoard__result')
+let newGame = document.querySelector('.gameBoard__newGame')
 
 let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
@@ -92,10 +94,19 @@ function getEnemyBoxId(item) {
             chanegWidthElement(armyOfPlayer)
         }
         choiceEnemyCoordinate()
+        mainCounter++;
     }
-    mainCounter++;
     if (mainCounter == numberOfBoxes / 2) {
         summaryGame.classList.remove('visible')
+        let finalArmyPlayerWidth = parseInt(getComputedStyle(armyOfPlayer).width)
+        let finalArmyEnemyWidth = parseInt(getComputedStyle(armyOfEnemy).width)
+        if (finalArmyPlayerWidth > finalArmyEnemyWidth) {
+            gameResult.textContent = "Gratulacje !!!! Wygrałeś"
+        } else if (finalArmyPlayerWidth < finalArmyEnemyWidth) {
+            gameResult.textContent = "Niestety. Przegrałeś"
+        } else {
+            gameResult.textContent = "Remis."
+        }
     }
 }
 
@@ -116,6 +127,8 @@ function choicedMode(arg1, arg2) {
     }
     startGameBtn.classList.remove('visible')
 }
+
+
 basicMode.addEventListener('click', () => {
     choicedMode(basicMode, expandMode)
 })
@@ -123,6 +136,18 @@ basicMode.addEventListener('click', () => {
 expandMode.addEventListener('click', () => {
     choicedMode(expandMode, basicMode)
 })
+
+function beginNewGame() {
+    summaryGame.classList.add('visible')
+    mainCounter = 0;
+    enemyNumbers = []
+    clickedBox = []
+    armyOfPlayer.style.width = startWidthOfArmy + 'px'
+    armyOfEnemy.style.width = startWidthOfArmy + 'px'
+    boxes.forEach(box => {
+        box.classList.remove('clicked')
+    })
+}
 
 function closeWindow(arg) {
     arg.classList.add('visible')
@@ -134,3 +159,4 @@ welcomeBtn.addEventListener('click', () => {
 startGameBtn.addEventListener('click', () => {
     closeWindow(gameDescription)
 })
+newGame.addEventListener('click', beginNewGame)
