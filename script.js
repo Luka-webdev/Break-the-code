@@ -8,6 +8,7 @@ let armyOfPlayer = document.querySelector('.gameBoard__armyOfPlayer')
 let armyOfEnemy = document.querySelector('.gameBoard__armyOfEnemy')
 let basicMode = document.querySelector('.gameDescription__basic')
 let expandMode = document.querySelector('.gameDescription__expand')
+let summaryGame = document.querySelector('.gameBoard__message')
 
 let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
@@ -91,7 +92,10 @@ function getEnemyBoxId(item) {
             chanegWidthElement(armyOfPlayer)
         }
         choiceEnemyCoordinate()
-        mainCounter++;
+    }
+    mainCounter++;
+    if (mainCounter == numberOfBoxes / 2) {
+        summaryGame.classList.remove('visible')
     }
 }
 

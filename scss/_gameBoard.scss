@@ -4,6 +4,7 @@
     background-color: black;
 
     &__content {
+        position: relative;
         margin: auto;
         width: 90%;
         height: 90%;
@@ -84,5 +85,16 @@
         &:hover {
             background-color: green;
         }
+    }
+
+    &__message {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(50%, 50%);
+        width: 50%;
+        height: 50%;
+        border: 5px solid black;
+        background-color: #fff;
     }
 }
