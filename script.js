@@ -11,6 +11,8 @@ let expandMode = document.querySelector('.gameDescription__expand')
 let summaryGame = document.querySelector('.gameBoard__message')
 let gameResult = document.querySelector('.gameBoard__result')
 let newGame = document.querySelector('.gameBoard__newGame')
+let label = document.querySelector('.gameBoard__label')
+let checkMode = document.querySelector('input')
 
 let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
@@ -18,6 +20,7 @@ let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
 let mainCounter = 0;
 let enemyNumbers = []
 let clickedBox = []
+let newMode;
 let startWidthOfArmy = parseInt(getComputedStyle(armyOfPlayer).width)
 let oneUnitOfArmy = startWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
 
@@ -58,13 +61,12 @@ function choiceEnemyCoordinate() {
     enemyNumbers.push(numOfEnemy)
     let targetBox = document.getElementById(numOfEnemy)
     let coordinatesOfEnemy = targetBox.getAttribute('coordinate')
-    console.log(coordinatesOfEnemy)
     hidingCoordinates(coordinatesOfEnemy)
 }
 
 function hidingCoordinates(arg) {
     num = Math.round(Math.random())
-    if (expandMode.classList.contains('choiced')) {
+    if (expandMode.classList.contains('choiced') || checkMode.checked) {
         if (num == 0) {
             coordinates.textContent = arg[0] + "?"
         } else if (num == 1) {
@@ -107,13 +109,14 @@ function getEnemyBoxId(item) {
         } else {
             gameResult.textContent = "Remis."
         }
+        checkMode.checked = false
+        label.textContent = "Zmień tryb na " + newMode
     }
 }
 
 function chanegWidthElement(arg) {
     let actualWidth = parseInt(getComputedStyle(arg).width)
     arg.style.width = (actualWidth - oneUnitOfArmy) + "px"
-    console.log(actualWidth)
 }
 
 let boxes = document.querySelectorAll('.gameBoard__cityBox')
@@ -121,20 +124,21 @@ boxes.forEach(box => {
     box.addEventListener('click', () => getEnemyBoxId(box))
 })
 
-function choicedMode(arg1, arg2) {
+function choicedMode(arg1, arg2, arg3) {
     if (arg2.classList.contains('choiced') == false) {
         arg1.classList.add('choiced')
+        newMode = arg3
     }
     startGameBtn.classList.remove('visible')
 }
 
 
 basicMode.addEventListener('click', () => {
-    choicedMode(basicMode, expandMode)
+    choicedMode(basicMode, expandMode, "rozszerzony")
 })
 
 expandMode.addEventListener('click', () => {
-    choicedMode(expandMode, basicMode)
+    choicedMode(expandMode, basicMode, "podstawowy")
 })
 
 function beginNewGame() {
@@ -160,3 +164,15 @@ startGameBtn.addEventListener('click', () => {
     closeWindow(gameDescription)
 })
 newGame.addEventListener('click', beginNewGame)
+
+checkMode.addEventListener('change', () => {
+    basicMode.classList.remove('choiced')
+    expandMode.classList.remove('choiced')
+    if (newMode == "podstawowy") {
+        basicMode.classList.add('choiced')
+        newMode = "rozszerzony"
+    } else {
+        expandMode.classList.add('choiced')
+        newMode = "podstawowy"
+    }
+})
