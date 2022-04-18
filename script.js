@@ -1,4 +1,5 @@
-let welcomeBtn = document.querySelector('.welcomeScreen__btn')
+let welcomeScreenLoad = document.querySelector('.welcomeScreen__load')
+let loadingLine = document.querySelector('.welcomeScreen__line')
 let welcomeScreen = document.querySelector('.welcomeScreen')
 let startGameBtn = document.querySelector('.gameDescription__btn')
 let gameDescription = document.querySelector('.gameDescription')
@@ -42,7 +43,7 @@ function createCityBoxes() {
         city.appendChild(box)
     }
 }
-
+closeWelcomeScreen()
 createCityBoxes()
 choiceEnemyCoordinate()
 
@@ -157,9 +158,6 @@ function closeWindow(arg) {
     arg.classList.add('visible')
 }
 
-welcomeBtn.addEventListener('click', () => {
-    closeWindow(welcomeScreen)
-})
 startGameBtn.addEventListener('click', () => {
     closeWindow(gameDescription)
 })
@@ -176,3 +174,19 @@ checkMode.addEventListener('change', () => {
         newMode = "podstawowy"
     }
 })
+
+function closeWelcomeScreen() {
+    let progress = 1
+    let finallyWidth = parseInt(getComputedStyle(welcomeScreenLoad).width)
+    let loading = setInterval(() => {
+        let actualLoadWidth = parseInt(getComputedStyle(loadingLine).width)
+        if (actualLoadWidth < finallyWidth) {
+            loadingLine.style.width = actualLoadWidth + progress + "px"
+
+        } else {
+            clearInterval(loading)
+            closeWindow(welcomeScreen)
+        }
+    }, 2)
+
+}
