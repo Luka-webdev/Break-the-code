@@ -1,3 +1,5 @@
+//Get an access to various elements 
+
 let welcomeScreenLoad = document.querySelector('.welcomeScreen__load')
 let loadingLine = document.querySelector('.welcomeScreen__line')
 let welcomeScreen = document.querySelector('.welcomeScreen')
@@ -15,6 +17,8 @@ let newGame = document.querySelector('.gameBoard__newGame')
 let label = document.querySelector('.gameBoard__label')
 let checkMode = document.querySelector('input')
 
+// initialization of variables used in the code
+
 let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
 let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
@@ -24,6 +28,13 @@ let clickedBox = []
 let newMode;
 let startWidthOfArmy = parseInt(getComputedStyle(armyOfPlayer).width)
 let oneUnitOfArmy = startWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
+
+let armyLabels = document.querySelectorAll('.gameBoard__army>div>div')
+armyLabels.forEach(label => {
+    label.style.width = startWidthOfArmy + 'px'
+})
+
+// creating elements that will create the main map of the game
 
 function createCityBoxes() {
     let counter = 1
@@ -47,6 +58,8 @@ closeWelcomeScreen()
 createCityBoxes()
 choiceEnemyCoordinate()
 
+// selecting the coordinates of items representing the player's enemy
+
 function choiceEnemyCoordinate() {
     numOfEnemy = (Math.floor(Math.random() * numberOfBoxes + 1))
     for (let i = 0; i < enemyNumbers.length; i++) {
@@ -64,6 +77,8 @@ function choiceEnemyCoordinate() {
     let coordinatesOfEnemy = targetBox.getAttribute('coordinate')
     hidingCoordinates(coordinatesOfEnemy)
 }
+
+// hiding part of the enemy's coordinates
 
 function hidingCoordinates(arg) {
     num = Math.round(Math.random())
@@ -85,6 +100,8 @@ function hidingCoordinates(arg) {
         }
     }
 }
+
+// determining what is to happen after clicking on one of the elements that create the map
 
 function getEnemyBoxId(item) {
     if (mainCounter < numberOfBoxes / 2 && item.classList.contains('clicked') == false) {
@@ -115,15 +132,21 @@ function getEnemyBoxId(item) {
     }
 }
 
+// changing the width of the bar informing about the strength of the player and enemy
+
 function chanegWidthElement(arg) {
     let actualWidth = parseInt(getComputedStyle(arg).width)
     arg.style.width = (actualWidth - oneUnitOfArmy) + "px"
 }
 
+// add event listener for each element that create the map
+
 let boxes = document.querySelectorAll('.gameBoard__cityBox')
 boxes.forEach(box => {
     box.addEventListener('click', () => getEnemyBoxId(box))
 })
+
+// choice of game mode when the game is started for the first time
 
 function choicedMode(arg1, arg2, arg3) {
     if (arg2.classList.contains('choiced') == false) {
@@ -133,7 +156,6 @@ function choicedMode(arg1, arg2, arg3) {
     startGameBtn.classList.remove('visible')
 }
 
-
 basicMode.addEventListener('click', () => {
     choicedMode(basicMode, expandMode, "rozszerzony")
 })
@@ -141,6 +163,8 @@ basicMode.addEventListener('click', () => {
 expandMode.addEventListener('click', () => {
     choicedMode(expandMode, basicMode, "podstawowy")
 })
+
+// function to restart game
 
 function beginNewGame() {
     summaryGame.classList.add('visible')
@@ -163,6 +187,8 @@ startGameBtn.addEventListener('click', () => {
 })
 newGame.addEventListener('click', beginNewGame)
 
+//allow to select a game mode after restarting
+
 checkMode.addEventListener('change', () => {
     basicMode.classList.remove('choiced')
     expandMode.classList.remove('choiced')
@@ -175,6 +201,8 @@ checkMode.addEventListener('change', () => {
     }
 })
 
+// the behavior of the loading bar at the beginning of the game
+
 function closeWelcomeScreen() {
     let progress = 1
     let finallyWidth = parseInt(getComputedStyle(welcomeScreenLoad).width)
@@ -182,11 +210,9 @@ function closeWelcomeScreen() {
         let actualLoadWidth = parseInt(getComputedStyle(loadingLine).width)
         if (actualLoadWidth < finallyWidth) {
             loadingLine.style.width = actualLoadWidth + progress + "px"
-
         } else {
             clearInterval(loading)
             closeWindow(welcomeScreen)
         }
-    }, 2)
-
+    }, 1)
 }

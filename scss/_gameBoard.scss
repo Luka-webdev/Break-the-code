@@ -27,9 +27,24 @@
     }
 
     &__armyOfEnemy {
+        position: relative;
         width: 45%;
         height: 80%;
         background-color: yellow;
+    }
+
+    &__playerLabel,
+    &__enemyLabel {
+        height: 100%;
+        border: 2px solid black;
+        font-size: 2vw;
+        text-align: center;
+        color: black;
+    }
+
+    &__enemyLabel {
+        position: absolute;
+        right: 0;
     }
 
     &__code {
@@ -49,8 +64,6 @@
     &__map {
         background-color: blue;
         height: 78%;
-        // display: flex;
-        // flex-wrap: wrap;
         display: grid;
         grid-template-columns: 1fr 12fr;
         grid-template-rows: 1fr 5fr;
