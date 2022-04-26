@@ -87,16 +87,25 @@
     }
 
     &__city {
-        background-color: greenyellow;
+        position: relative;
+        background-color: transparent;
         grid-area: cityBox;
         display: grid;
         grid-template-rows: repeat(5, 1fr);
         grid-template-columns: repeat(12, 1fr);
     }
 
+    &__city canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     &__cityBox {
+        z-index: 1;
+
         &:hover {
-            background-color: green;
+            border: 2px solid black;
         }
     }
 
@@ -109,5 +118,6 @@
         height: 50%;
         border: 5px solid black;
         background-color: gray;
+        z-index: 2;
     }
 }

@@ -28,6 +28,8 @@ let clickedBox = []
 let newMode;
 let startWidthOfArmy = parseInt(getComputedStyle(armyOfPlayer).width)
 let oneUnitOfArmy = startWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
+let widthOfCity = parseInt(getComputedStyle(city).width)
+let heightOfCity = parseInt(getComputedStyle(city).height)
 
 let armyLabels = document.querySelectorAll('.gameBoard__army>div>div')
 armyLabels.forEach(label => {
@@ -216,3 +218,38 @@ function closeWelcomeScreen() {
         }
     }, 1)
 }
+
+// functions to creating and moving viewfinder
+
+const canvas = document.querySelector('canvas')
+const ctx = canvas.getContext('2d')
+canvas.width = widthOfCity
+canvas.height = heightOfCity
+
+function partOfViewFinder(x1, y1, x2, y2) {
+    ctx.beginPath()
+    ctx.moveTo(x1, y1)
+    ctx.lineTo(x2, y2)
+    ctx.closePath()
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+}
+
+function viewFinder(x, y) {
+    ctx.beginPath()
+    ctx.arc(x, y, 25, 0, Math.PI * 2, true)
+    ctx.lineWidth = 6
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+    partOfViewFinder(x + 10, y, x + 40, y)
+    partOfViewFinder(x - 10, y, x - 40, y)
+    partOfViewFinder(x, y + 10, x, y + 40)
+    partOfViewFinder(x, y - 10, x, y - 40)
+}
+
+city.addEventListener('mousemove', (e) => {
+    ctx.clearRect(0, 0, widthOfCity, heightOfCity)
+    let positionX = e.layerX
+    let positionY = e.layerY
+    viewFinder(positionX, positionY)
+})
