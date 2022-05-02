@@ -1,35 +1,35 @@
 .welcomeScreen {
-    position: relative;
     z-index: 3;
     background-color: black;
 
     &__content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(50%, 50%);
+        margin: 10vw auto;
+        width: 60%;
         height: 50%;
         padding: 3vw;
     }
 
     &__title {
-
+        text-align: center;
         color: white;
-        font-size: 6vw;
-        font-family: arial;
+        font-size: 7vw;
+        font-family: 'Bangers', cursive;
     }
 
     &__load {
+        margin: 3vw auto;
         position: relative;
-        width: 100%;
-        height: 1vw;
+        width: 70%;
+        height: 1.3vw;
         background-color: white;
+        border-radius: 4px;
     }
 
     &__line {
         height: 100%;
         width: 0;
         background-color: orange;
+        border-radius: 4px;
     }
 
     &__btn {
