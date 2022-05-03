@@ -14,7 +14,6 @@
     }
 
     &__army {
-        background-color: red;
         height: 12%;
         display: flex;
         justify-content: space-between;
@@ -24,23 +23,24 @@
     &__armyOfPlayer {
         width: 45%;
         height: 80%;
-        background-color: orange;
+        background-color: #eb4d4b;
     }
 
     &__armyOfEnemy {
         position: relative;
         width: 45%;
         height: 80%;
-        background-color: yellow;
+        background-color: #6ab04c;
     }
 
     &__playerLabel,
     &__enemyLabel {
         height: 100%;
-        border: 2px solid black;
+        border: 3px solid wheat;
         font-size: 2vw;
         text-align: center;
-        color: black;
+        color: white;
+        padding-top: 0.7vw;
     }
 
     &__enemyLabel {
@@ -49,21 +49,29 @@
     }
 
     &__code {
-        background-color: green;
         height: 10%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        font-size: 2vw;
 
         p {
-            width: 10%;
-            padding-left: 2vw;
-            background-color: teal;
+            margin-left: 1.5vw;
         }
+    }
+
+    &__target {
+        width: 5%;
+        text-align: center;
+        padding: 0.5vw;
+        background-color: teal;
+        border-radius: 1vw;
     }
 
     &__map {
         background-color: blue;
+        font-size: 2vw;
+        text-align: center;
         height: 78%;
         display: grid;
         grid-template-columns: 1fr 12fr;
@@ -74,14 +82,16 @@
     }
 
     &__xCoordinates {
-        background-color: gray;
+        background-color: #0a3d62;
+        padding-top: 1.5vw;
         grid-area: xBox;
         display: grid;
         grid-template-columns: repeat(13, 1fr);
     }
 
     &__yCoordinates {
-        background-color: purple;
+        background-color: #0a3d62;
+        padding-top: 1.5vw;
         grid-area: yBox;
         display: grid;
         grid-template-rows: repeat(5, 1fr);
@@ -116,9 +126,29 @@
         left: 0;
         transform: translate(50%, 50%);
         width: 50%;
-        height: 50%;
-        border: 5px solid black;
-        background-color: gray;
+        border: 5px solid #ffa502;
         z-index: 2;
+        text-align: center;
+        padding: 1vw;
+        background-color: #192a56;
+        border-radius: 1.5vw;
+    }
+
+    &__result {
+        font-size: 3.5vw;
+        margin-bottom: 1.5vw;
+        color: #778ca3
+    }
+
+    &__newGame {
+        font-size: 2.5vw;
+        padding: 0.6vw 1.2vw;
+        font-family: 'Alfa Slab One', cursive;
+        margin: 1.5vw;
+    }
+
+    &__label {
+        font-size: 1.5vw;
+        margin-right: 0.5vw;
     }
 }
