@@ -21,14 +21,14 @@
     }
 
     &__armyOfPlayer {
-        width: 45%;
+        width: 40vw;
         height: 80%;
         background-color: #eb4d4b;
     }
 
     &__armyOfEnemy {
         position: relative;
-        width: 45%;
+        width: 40vw;
         height: 80%;
         background-color: #6ab04c;
     }
@@ -113,10 +113,56 @@
     }
 
     &__cityBox {
+        position: relative;
         z-index: 1;
+        display: flex;
+        justify-content: center;
 
         &:hover {
             border: 2px solid black;
+        }
+    }
+
+    &__cityBox img {
+        position: absolute;
+        width: 35%;
+        height: 40%;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        animation: drop 1s forwards;
+    }
+
+    &__cityBox p {
+        position: absolute;
+        width: 65%;
+        height: 30%;
+        font-size: 1.1vw;
+        font-family: 'Luckiest Guy', cursive;
+        animation: showResults 1.2s 0.9s forwards;
+    }
+
+    @keyframes drop {
+        from {
+            transform: translateY(0px);
+        }
+
+        to {
+            transform: translateY(130%);
+            visibility: hidden;
+            content: "Trafiony";
+        }
+    }
+
+    @keyframes showResults {
+        from {
+            visibility: visible;
+            transform: translateY(130%);
+        }
+
+        to {
+            transform: translateY(80%);
+            visibility: visible;
         }
     }
 

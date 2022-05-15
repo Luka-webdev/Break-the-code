@@ -11,6 +11,7 @@ let loadingLine = document.querySelector('.welcomeScreen__line')
 let welcomeScreen = document.querySelector('.welcomeScreen')
 let startGameBtn = document.querySelector('.gameDescription__startGame')
 let gameDescription = document.querySelector('.gameDescription')
+let gameContent = document.querySelector('.gameBoard__content')
 let city = document.querySelector('.gameBoard__city')
 let coordinates = document.querySelector('.gameBoard__target')
 let armyOfPlayer = document.querySelector('.gameBoard__armyOfPlayer')
@@ -115,6 +116,16 @@ function hidingCoordinates(arg) {
     }
 }
 
+function makeAtack(arg, text) {
+    let bomb = document.createElement('img')
+    bomb.setAttribute('src', 'bomb.png')
+    arg.appendChild(bomb)
+    let resultOfAttack = document.createElement('p')
+    resultOfAttack.textContent = text
+    resultOfAttack.style.visibility = "hidden"
+    arg.appendChild(resultOfAttack)
+}
+
 // determining what is to happen after clicking on one of the elements that create the map
 
 function getEnemyBoxId(item) {
@@ -123,8 +134,10 @@ function getEnemyBoxId(item) {
         clickedBox.push(boxId)
         item.classList.add('clicked')
         if (numOfEnemy == boxId) {
+            makeAtack(item, "Trafiony")
             chanegWidthElement(armyOfEnemy)
         } else {
+            makeAtack(item, "Skucha")
             chanegWidthElement(armyOfPlayer)
         }
         choiceEnemyCoordinate()
@@ -192,6 +205,9 @@ function beginNewGame() {
     armyOfEnemy.style.width = startWidthOfArmy + 'px'
     boxes.forEach(box => {
         box.classList.remove('clicked')
+        while (box.firstChild) {
+            box.removeChild(box.firstChild);
+        }
     })
     choiceEnemyCoordinate()
 }
@@ -275,14 +291,16 @@ function viewFinder(x, y) {
     partOfViewFinder(x, y - 10, x, y - 40)
 }
 
+
 city.addEventListener('mousemove', (e) => {
+
     if (flag) {
         ctx.clearRect(0, 0, actualWidthOfTheCity, actualHeightOfTheCity)
     } else {
         ctx.clearRect(0, 0, widthOfCity, heightOfCity)
     }
-    let positionX = e.layerX
-    let positionY = e.layerY
+    let positionX = e.clientX - city.offsetLeft - parseInt(getComputedStyle(gameContent).marginLeft)
+    let positionY = e.clientY - city.offsetTop - parseInt(getComputedStyle(gameContent).marginTop)
     // cityPlan(actualWidthOfTheCity / actualWidthOfTheCity)
     viewFinder(positionX, positionY)
 })
