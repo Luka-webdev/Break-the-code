@@ -21,31 +21,48 @@
     }
 
     &__armyOfPlayer {
+        position: relative;
         width: 40vw;
         height: 80%;
-        background-color: #eb4d4b;
+        border: 3px solid wheat;
     }
 
     &__armyOfEnemy {
         position: relative;
         width: 40vw;
         height: 80%;
-        background-color: #6ab04c;
-    }
-
-    &__playerLabel,
-    &__enemyLabel {
-        height: 100%;
         border: 3px solid wheat;
-        font-size: 2vw;
-        text-align: center;
-        color: white;
-        padding-top: 0.7vw;
     }
 
-    &__enemyLabel {
+
+    &__playerForce {
         position: absolute;
-        right: 0;
+        left: -3px;
+        top: 0;
+        width: 40vw;
+        height: 100%;
+        background-color: #eb4d4b;
+        z-index: -1;
+    }
+
+    &__enemyForce {
+        position: absolute;
+        right: -3px;
+        top: 0;
+        width: 40vw;
+        height: 100%;
+        background-color: #6ab04c;
+        z-index: -1
+    }
+
+    &__enemyLabel,
+    &__playerLabel {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2vw;
+        z-index: 2;
     }
 
     &__code {
@@ -63,7 +80,7 @@
     &__target {
         width: 5%;
         text-align: center;
-        padding: 0.5vw;
+        padding: 0.1vw;
         background-color: teal;
         border-radius: 1vw;
     }
@@ -74,8 +91,8 @@
         text-align: center;
         height: 78%;
         display: grid;
-        grid-template-columns: 1fr 12fr;
-        grid-template-rows: 1fr 5fr;
+        grid-template-columns: 1fr 10fr;
+        grid-template-rows: 1fr 4fr;
         grid-template-areas:
             "xBox xBox"
             "yBox cityBox"
@@ -86,7 +103,7 @@
         padding-top: 1.5vw;
         grid-area: xBox;
         display: grid;
-        grid-template-columns: repeat(13, 1fr);
+        grid-template-columns: repeat(11, 1fr);
     }
 
     &__yCoordinates {
@@ -94,7 +111,7 @@
         padding-top: 1.5vw;
         grid-area: yBox;
         display: grid;
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
     }
 
     &__city {
@@ -102,8 +119,8 @@
         background-color: transparent;
         grid-area: cityBox;
         display: grid;
-        grid-template-rows: repeat(5, 1fr);
-        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: repeat(10, 1fr);
     }
 
     &__city canvas {

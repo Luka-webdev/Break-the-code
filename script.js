@@ -1,9 +1,3 @@
-// import {
-//     makeCityPlan
-// } from '/cityPlan.js'
-
-// makeCityPlan()
-
 //Get an access to various elements 
 
 let welcomeScreenLoad = document.querySelector('.welcomeScreen__load')
@@ -14,7 +8,8 @@ let gameDescription = document.querySelector('.gameDescription')
 let gameContent = document.querySelector('.gameBoard__content')
 let city = document.querySelector('.gameBoard__city')
 let coordinates = document.querySelector('.gameBoard__target')
-let armyOfPlayer = document.querySelector('.gameBoard__armyOfPlayer')
+let playerForce = document.querySelector('.gameBoard__playerForce')
+let enemyForce = document.querySelector('.gameBoard__enemyForce')
 let armyOfEnemy = document.querySelector('.gameBoard__armyOfEnemy')
 let basicMode = document.querySelector('.gameDescription__basic')
 let expandMode = document.querySelector('.gameDescription__expand')
@@ -27,25 +22,22 @@ let checkMode = document.querySelector('input')
 // initialization of variables used in the code
 
 startGameBtn.disabled = true;
-let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-let yCoordinatesArray = ['A', 'B', 'C', 'D', 'E']
+let xCoordinatesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let yCoordinatesArray = ['A', 'B', 'C', 'D']
 let numberOfBoxes = xCoordinatesArray.length * yCoordinatesArray.length
 let mainCounter = 0;
 let enemyNumbers = []
 let clickedBox = []
 let newMode;
-let startWidthOfArmy = parseInt(getComputedStyle(armyOfPlayer).width)
-let oneUnitOfArmy = startWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
+let numberOfWins = 0;
+let numberOfLoses = 0;
+let actualWidthOfArmy = parseInt(getComputedStyle(armyOfEnemy).width)
+let actualUnitOfArmy = actualWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
 let widthOfCity = parseInt(getComputedStyle(city).width)
 let heightOfCity = parseInt(getComputedStyle(city).height)
 let actualWidthOfTheCity;
 let actualHeightOfTheCity;
 let flag = false;
-
-let armyLabels = document.querySelectorAll('.gameBoard__army>div>div')
-armyLabels.forEach(label => {
-    label.style.width = startWidthOfArmy + 'px'
-})
 
 // creating elements that will create the main map of the game
 
@@ -60,7 +52,7 @@ function createCityBoxes() {
         box.setAttribute('class', 'gameBoard__cityBox')
         box.setAttribute('coordinate', yCoordinatesArray[counterY] + xCoordinatesArray[counterX])
         counterX++;
-        if (counterX == 12) {
+        if (counterX == xCoordinatesArray.length) {
             counterY++;
             counterX = 0;
         }
@@ -135,18 +127,20 @@ function getEnemyBoxId(item) {
         item.classList.add('clicked')
         if (numOfEnemy == boxId) {
             makeAtack(item, "Trafiony")
-            chanegWidthElement(armyOfEnemy)
+            chanegWidthElement(enemyForce)
+            numberOfWins++;
         } else {
             makeAtack(item, "Skucha")
-            chanegWidthElement(armyOfPlayer)
+            chanegWidthElement(playerForce)
+            numberOfLoses++;
         }
         choiceEnemyCoordinate()
         mainCounter++;
     }
     if (mainCounter == numberOfBoxes / 2) {
         summaryGame.classList.remove('visible')
-        let finalArmyPlayerWidth = parseInt(getComputedStyle(armyOfPlayer).width)
-        let finalArmyEnemyWidth = parseInt(getComputedStyle(armyOfEnemy).width)
+        let finalArmyPlayerWidth = parseInt(getComputedStyle(playerForce).width)
+        let finalArmyEnemyWidth = parseInt(getComputedStyle(enemyForce).width)
         if (finalArmyPlayerWidth > finalArmyEnemyWidth) {
             gameResult.textContent = "Gratulacje !!!! Wygrałeś"
         } else if (finalArmyPlayerWidth < finalArmyEnemyWidth) {
@@ -163,7 +157,7 @@ function getEnemyBoxId(item) {
 
 function chanegWidthElement(arg) {
     let actualWidth = parseInt(getComputedStyle(arg).width)
-    arg.style.width = (actualWidth - oneUnitOfArmy) + "px"
+    arg.style.width = (actualWidth - actualUnitOfArmy) + "px"
 }
 
 // add event listener for each element that create the map
@@ -201,8 +195,10 @@ function beginNewGame() {
     mainCounter = 0;
     enemyNumbers = []
     clickedBox = []
-    armyOfPlayer.style.width = startWidthOfArmy + 'px'
-    armyOfEnemy.style.width = startWidthOfArmy + 'px'
+    numberOfLoses = 0;
+    numberOfWins = 0;
+    playerForce.style.width = actualWidthOfArmy + 'px'
+    enemyForce.style.width = actualWidthOfArmy + 'px'
     boxes.forEach(box => {
         box.classList.remove('clicked')
         while (box.firstChild) {
@@ -250,6 +246,7 @@ function closeWelcomeScreen() {
         } else {
             clearInterval(loading)
             closeWindow(welcomeScreen)
+            loadingLine.style.display = "None"
         }
     }, 1)
 }
@@ -265,35 +262,36 @@ window.addEventListener('resize', function (event) {
     flag = true;
     actualWidthOfTheCity = parseInt(getComputedStyle(city).width)
     actualHeightOfTheCity = parseInt(getComputedStyle(city).height)
+    actualWidthOfArmy = parseInt(getComputedStyle(armyOfEnemy).width)
+    actualUnitOfArmy = actualWidthOfArmy / ((xCoordinatesArray.length * yCoordinatesArray.length) / 2)
     canvas.width = actualWidthOfTheCity
     canvas.height = actualHeightOfTheCity
+    playerForce.style.width = actualWidthOfArmy - (actualUnitOfArmy * numberOfLoses) + "px"
+    enemyForce.style.width = actualWidthOfArmy - (actualUnitOfArmy * numberOfWins) + "px"
 });
-
 
 function partOfViewFinder(x1, y1, x2, y2) {
     ctx.beginPath()
     ctx.moveTo(x1, y1)
     ctx.lineTo(x2, y2)
     ctx.closePath()
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'lime';
     ctx.stroke();
 }
 
 function viewFinder(x, y) {
     ctx.beginPath()
-    ctx.arc(x, y, 25, 0, Math.PI * 2, true)
-    ctx.lineWidth = 6
-    ctx.strokeStyle = 'red';
+    ctx.arc(x, y, actualUnitOfArmy, 0, Math.PI * 2, true)
+    ctx.lineWidth = 5
+    ctx.strokeStyle = 'lime';
     ctx.stroke();
-    partOfViewFinder(x + 10, y, x + 40, y)
-    partOfViewFinder(x - 10, y, x - 40, y)
-    partOfViewFinder(x, y + 10, x, y + 40)
-    partOfViewFinder(x, y - 10, x, y - 40)
+    partOfViewFinder(x + actualUnitOfArmy, y, x + actualUnitOfArmy * 1.8, y)
+    partOfViewFinder(x - actualUnitOfArmy, y, x - actualUnitOfArmy * 1.8, y)
+    partOfViewFinder(x, y + actualUnitOfArmy, x, y + actualUnitOfArmy * 1.8)
+    partOfViewFinder(x, y - actualUnitOfArmy, x, y - actualUnitOfArmy * 1.8)
 }
 
-
 city.addEventListener('mousemove', (e) => {
-
     if (flag) {
         ctx.clearRect(0, 0, actualWidthOfTheCity, actualHeightOfTheCity)
     } else {
@@ -301,20 +299,5 @@ city.addEventListener('mousemove', (e) => {
     }
     let positionX = e.clientX - city.offsetLeft - parseInt(getComputedStyle(gameContent).marginLeft)
     let positionY = e.clientY - city.offsetTop - parseInt(getComputedStyle(gameContent).marginTop)
-    // cityPlan(actualWidthOfTheCity / actualWidthOfTheCity)
     viewFinder(positionX, positionY)
 })
-
-// create city map
-
-// function cityPlan(length) {
-
-//     function building(x, y, width, height, color) {
-//         ctx.fillRect(x, y, width, height)
-//         ctx.fillStyle = color
-//     }
-//     building(length * 4, length * 4, length * 19, length * 12, 'brown')
-//     building(length * 16, length * 14, length * 17, length * 18, 'brown')
-//     building(length * 24, length * 29, length * 12, length * 20, 'brown')
-//     building(length * 39, length * 39, length * 16, length * 12, 'brown')
-// }
