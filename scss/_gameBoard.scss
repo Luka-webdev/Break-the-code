@@ -116,7 +116,11 @@
 
     &__city {
         position: relative;
-        background-color: transparent;
+        background-image: url('/city.png');
+
+
+        background-position: center;
+        background-size: cover;
         grid-area: cityBox;
         display: grid;
         grid-template-rows: repeat(4, 1fr);
@@ -136,7 +140,7 @@
         justify-content: center;
 
         &:hover {
-            border: 2px solid black;
+            border: 3px solid white;
         }
     }
 
