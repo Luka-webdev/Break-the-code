@@ -140,7 +140,7 @@
         justify-content: center;
 
         &:hover {
-            border: 3px solid white;
+            box-shadow: inset 0 0 0 3px;
         }
     }
 

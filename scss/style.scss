@@ -26,7 +26,25 @@
     visibility: hidden;
 }
 
-.clicked {}
+.clicked {
+    position: relative;
+
+    &:hover {
+        box-shadow: 0 0 0 0;
+    }
+
+    &:before {
+        position: absolute;
+        content: "";
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: gray;
+        opacity: 0.9;
+    }
+}
+
 
 .choiced {
     background-color: #576574;

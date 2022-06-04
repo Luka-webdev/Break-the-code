@@ -134,7 +134,9 @@ function getEnemyBoxId(item) {
             chanegWidthElement(playerForce)
             numberOfLoses++;
         }
-        choiceEnemyCoordinate()
+        setTimeout(() => {
+            choiceEnemyCoordinate()
+        }, 1400)
         mainCounter++;
     }
     if (mainCounter == numberOfBoxes / 2) {
@@ -157,7 +159,11 @@ function getEnemyBoxId(item) {
 
 function chanegWidthElement(arg) {
     let actualWidth = parseInt(getComputedStyle(arg).width)
-    arg.style.width = (actualWidth - actualUnitOfArmy) + "px"
+    if (actualWidth > actualUnitOfArmy) {
+        arg.style.width = (actualWidth - actualUnitOfArmy) + "px"
+    } else {
+        arg.style.width = 0 + "px"
+    }
 }
 
 // add event listener for each element that create the map
