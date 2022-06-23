@@ -1,3 +1,8 @@
+$title-color:white;
+$title-font:'Bangers',
+cursive;
+$load-line-color:orange;
+
 .welcomeScreen {
     z-index: 3;
     background-color: black;
@@ -11,9 +16,9 @@
 
     &__title {
         text-align: center;
-        color: white;
+        color: $title-color;
         font-size: 7vw;
-        font-family: 'Bangers', cursive;
+        font-family: $title-font;
     }
 
     &__load {
@@ -21,14 +26,14 @@
         position: relative;
         width: 70%;
         height: 1.3vw;
-        background-color: white;
+        background-color: $title-color;
         border-radius: 4px;
     }
 
     &__line {
         height: 100%;
         width: 0;
-        background-color: orange;
+        background-color: $load-line-color;
         border-radius: 4px;
     }
 

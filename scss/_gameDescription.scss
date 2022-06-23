@@ -1,6 +1,11 @@
+$buttons-font:'Alfa Slab One',
+cursive;
+$instructions-color:lime;
+$bgc-description:black;
+
 .gameDescription {
     z-index: 2;
-    background-color: black;
+    background-color: $bgc-description;
 
     &__content {
         width: 60%;
@@ -10,7 +15,7 @@
     }
 
     &__instructions {
-        color: lime;
+        color: $instructions-color;
         font-family: monospace;
         font-size: 1.5vw;
         padding: 1vw;
@@ -28,7 +33,7 @@
     &__buttons button {
         font-size: 1.2vw;
         padding: 0.5vw 0;
-        font-family: 'Alfa Slab One', cursive;
+        font-family: $buttons-font;
         width: 28%;
         border-radius: 0.5vw;
         ;

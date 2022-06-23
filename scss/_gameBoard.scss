@@ -1,16 +1,31 @@
+$board-font:'Staatliches',
+cursive;
+$box-font:'Acme',
+sans-serif;
+$font-result:'Alfa Slab One',
+cursive;
+$content-color:white;
+$army-border:wheat;
+$bgc-player:#eb4d4b;
+$bgc-enemy:#6ab04c;
+$bgc-target:teal;
+$bgc-coordinates:#0a3d62;
+$bgc-result:#192a56;
+$bgc-color:#778ca3;
+
 .gameBoard {
     display: flex;
     z-index: 1;
     background-color: black;
-    font-family: 'Staatliches', cursive;
+    font-family: $board-font;
 
     &__content {
         position: relative;
         margin: auto;
         width: 90%;
         height: 90%;
-        border: 4px solid white;
-        color: white;
+        border: 4px solid $content-color;
+        color: $content-color;
     }
 
     &__army {
@@ -20,20 +35,13 @@
         align-items: center;
     }
 
-    &__armyOfPlayer {
-        position: relative;
-        width: 40vw;
-        height: 80%;
-        border: 3px solid wheat;
-    }
-
+    &__armyOfPlayer,
     &__armyOfEnemy {
         position: relative;
         width: 40vw;
         height: 80%;
-        border: 3px solid wheat;
+        border: 3px solid $army-border;
     }
-
 
     &__playerForce {
         position: absolute;
@@ -41,7 +49,7 @@
         top: 0;
         width: 40vw;
         height: 100%;
-        background-color: #eb4d4b;
+        background-color: $bgc-player;
         z-index: -1;
     }
 
@@ -51,7 +59,7 @@
         top: 0;
         width: 40vw;
         height: 100%;
-        background-color: #6ab04c;
+        background-color: $bgc-enemy;
         z-index: -1
     }
 
@@ -81,12 +89,11 @@
         width: 5%;
         text-align: center;
         padding: 0.1vw;
-        background-color: teal;
+        background-color: $bgc-target;
         border-radius: 1vw;
     }
 
     &__map {
-        background-color: blue;
         font-size: 2vw;
         text-align: center;
         height: 78%;
@@ -99,26 +106,47 @@
     }
 
     &__xCoordinates {
-        background-color: #0a3d62;
-        padding-top: 1.5vw;
+        background-color: $bgc-coordinates;
         grid-area: xBox;
         display: grid;
         grid-template-columns: repeat(11, 1fr);
+
+        & div:nth-of-type(even) {
+            background-color: lighten($bgc-coordinates, 20%)
+        }
+
+        & div {
+            display: flex
+        }
+
+        & div p {
+            margin: auto;
+        }
     }
 
+
     &__yCoordinates {
-        background-color: #0a3d62;
-        padding-top: 1.5vw;
+        background-color: $bgc-coordinates;
         grid-area: yBox;
         display: grid;
         grid-template-rows: repeat(4, 1fr);
+
+        & div:nth-of-type(odd) {
+            background-color: lighten($bgc-coordinates, 20%)
+        }
+
+        & div {
+            display: flex
+        }
+
+        & div p {
+            margin: auto;
+        }
     }
 
     &__city {
         position: relative;
         background-image: url('/city.png');
-
-
         background-position: center;
         background-size: cover;
         grid-area: cityBox;
@@ -158,8 +186,8 @@
         position: absolute;
         width: 65%;
         height: 30%;
-        font-size: 1.1vw;
-        font-family: 'Luckiest Guy', cursive;
+        font-size: 1.3vw;
+        font-family: $box-font;
         animation: showResults 1.2s 0.9s forwards;
     }
 
@@ -197,20 +225,20 @@
         z-index: 2;
         text-align: center;
         padding: 1vw;
-        background-color: #192a56;
+        background-color: $bgc-result;
         border-radius: 1.5vw;
     }
 
     &__result {
         font-size: 3.5vw;
         margin-bottom: 1.5vw;
-        color: #778ca3
+        color: $bgc-color;
     }
 
     &__newGame {
         font-size: 2.5vw;
         padding: 0.6vw 1.2vw;
-        font-family: 'Alfa Slab One', cursive;
+        font-family: $font-result;
         margin: 1.5vw;
     }
 

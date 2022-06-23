@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/Luka-webdev/Break-the-code#readme",
   "devDependencies": {
-    "grunt": "^1.4.1"
+    "grunt": "^1.4.1",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-uglify": "^5.2.2"
   }
 }
