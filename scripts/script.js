@@ -38,6 +38,15 @@ let heightOfCity = parseInt(getComputedStyle(city).height)
 let actualWidthOfTheCity;
 let actualHeightOfTheCity;
 let flag = false;
+let isMobile;
+
+// detect if browser is on a mobile device
+
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    isMobile = true
+} else {
+    isMobile = false
+}
 
 // creating elements that will create the main map of the game
 
@@ -86,9 +95,7 @@ function choiceEnemyCoordinate() {
 
 function hidingCoordinates(arg) {
     num = Math.round(Math.random())
-    console.log(num)
     if (expandMode.classList.contains('choiced') || (checkMode.checked && newMode == 'podstawowy')) {
-        console.log('Rozszerzony')
         if (num == 0) {
             coordinates.textContent = arg[0] + "?"
         } else if (num == 1) {
@@ -99,7 +106,6 @@ function hidingCoordinates(arg) {
             }
         }
     } else if (basicMode.classList.contains('choiced') || (checkMode.checked && newMode == 'rozszerzony')) {
-        console.log('podstawowy')
         if (arg.length == 2) {
             coordinates.textContent = "?" + arg[1]
         } else if (arg.length == 3) {
@@ -186,12 +192,10 @@ function choicedMode(arg1, arg2, arg3) {
 
 basicMode.addEventListener('click', () => {
     choicedMode(basicMode, expandMode, "rozszerzony")
-    console.log('tryb podstawowy')
 })
 
 expandMode.addEventListener('click', () => {
     choicedMode(expandMode, basicMode, "podstawowy")
-    console.log('tryb rozszrzony')
 })
 
 // function to restart game
@@ -232,11 +236,9 @@ checkMode.addEventListener('change', () => {
     if (newMode == "podstawowy") {
         basicMode.classList.add('choiced')
         newMode = "rozszerzony"
-        console.log('zmiana trybu na podstawowy')
     } else if (newMode == "rozszerzony") {
         expandMode.classList.add('choiced')
         newMode = "podstawowy"
-        console.log('zmiana trybu na rozszerzony')
     }
 })
 
@@ -298,12 +300,14 @@ function viewFinder(x, y) {
 }
 
 city.addEventListener('mousemove', (e) => {
-    if (flag) {
-        ctx.clearRect(0, 0, actualWidthOfTheCity, actualHeightOfTheCity)
-    } else {
-        ctx.clearRect(0, 0, widthOfCity, heightOfCity)
+    if (isMobile == false) {
+        if (flag) {
+            ctx.clearRect(0, 0, actualWidthOfTheCity, actualHeightOfTheCity)
+        } else {
+            ctx.clearRect(0, 0, widthOfCity, heightOfCity)
+        }
+        let positionX = e.clientX - city.offsetLeft - parseInt(getComputedStyle(gameContent).marginLeft)
+        let positionY = e.clientY - city.offsetTop - parseInt(getComputedStyle(gameContent).marginTop)
+        viewFinder(positionX, positionY)
     }
-    let positionX = e.clientX - city.offsetLeft - parseInt(getComputedStyle(gameContent).marginLeft)
-    let positionY = e.clientY - city.offsetTop - parseInt(getComputedStyle(gameContent).marginTop)
-    viewFinder(positionX, positionY)
 })

@@ -4,7 +4,7 @@ $box-font:'Acme',
 sans-serif;
 $font-result:'Alfa Slab One',
 cursive;
-$content-color:white;
+$content-color:rgb(180, 13, 13);
 $army-border:wheat;
 $bgc-player:#eb4d4b;
 $bgc-enemy:#6ab04c;
@@ -146,7 +146,7 @@ $bgc-color:#778ca3;
 
     &__city {
         position: relative;
-        background-image: url('/city.png');
+        background-image: url('../city.png');
         background-position: center;
         background-size: cover;
         grid-area: cityBox;
